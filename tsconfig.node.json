@@ -1,0 +1,48 @@
+{
+    "compilerOptions": {
+        "module": "ESNext",                         /* Use ESNext module system (ES modules) */
+        "target": "ESNext",                         /* Compile to the latest ECMAScript version */
+        "moduleResolution": "bundler",              /* Resolve modules using Node.js style */
+        "esModuleInterop": true,                    /* Enables interop between ES modules and CommonJS */
+        "allowSyntheticDefaultImports": true,       /* Allows default imports from modules with no default export */
+        "skipLibCheck": true,                       /* Skip type-checking declaration files (faster builds) */
+        "noEmit": true,
+
+        "rootDir": ".",
+        "outDir": "dist",
+        "paths": {
+            "@/*": ["./src-server/*"]
+        },
+        "lib": ["ES2023", "ESNext"],
+
+        "isolatedModules": true,
+        "moduleDetection": "auto",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+
+        "strict": true,                             /* Enable all strict type-checking options. */
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "useDefineForClassFields": true,
+        "importsNotUsedAsValues": "remove",
+        "noPropertyAccessFromIndexSignature": false,
+        "noImplicitAny": true,                      /* Enable error reporting for expressions and declarations with an implied 'any' type. */
+        "strictNullChecks": true,                   /* When type checking, take into account 'null' and 'undefined'. */
+        "strictFunctionTypes": true,                /* When assigning functions, check to ensure parameters and the return values are subtype-compatible. */
+        "strictBindCallApply": true,                /* Check that the arguments for 'bind', 'call', and 'apply' methods match the original function. */
+        "strictPropertyInitialization": false,      /* Check for class properties that are declared but not set in the constructor. */
+        "noImplicitThis": true,                     /* Enable error reporting when 'this' is given the type 'any'. */
+        "useUnknownInCatchVariables": true,         /* Default catch clause variables as 'unknown' instead of 'any'. */
+        "alwaysStrict": true,                       /* Ensure 'use strict' is always emitted. */
+        "exactOptionalPropertyTypes": false,        /* Interpret optional property types as written, rather than adding 'undefined'. */
+        "noImplicitReturns": true,                  /* Enable error reporting for codepaths that do not explicitly return in a function. */
+        "noFallthroughCasesInSwitch": true,         /* Enable error reporting for fallthrough cases in switch statements. */
+        "noUncheckedIndexedAccess": true,           /* Add 'undefined' to a type when accessed using an index. */
+        "noImplicitOverride": true                  /* Ensure overriding members in derived classes are marked with an override modifier. */
+    },
+    "include": [
+        "vite.config.ts",
+        "tsup.config.ts",
+        "src-server/**/*"
+    ]
+}

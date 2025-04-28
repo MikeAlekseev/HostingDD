@@ -23,6 +23,13 @@ checkDirectory(FILESTORE_DIRPATH).catch((err) => {
     console.error(err)
 })
 
+export const TEMP_FILESTORE_DIRNAME = 'temp'
+export const TEMP_FILESTORE_DIRPATH = resolve(PROJECT_ROOT_PATH, TEMP_FILESTORE_DIRNAME)
+
+checkDirectory(TEMP_FILESTORE_DIRPATH).catch((err) => {
+    console.error(err)
+})
+
 export const isProd = process.env.NODE_ENV === 'production'
 export const isDev = !isProd
 

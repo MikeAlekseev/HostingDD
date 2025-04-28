@@ -9,3 +9,5 @@ export const vaultListSchema = z.array(
         id: z.string().uuid(),
     })
 )
+
+export type VaultList = z.infer<typeof vaultListSchema>

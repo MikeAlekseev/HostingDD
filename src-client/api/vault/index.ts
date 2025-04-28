@@ -1,1 +1,2 @@
-export * from './getVault.ts'
+export * from './getVault'
+export * from './createVault'

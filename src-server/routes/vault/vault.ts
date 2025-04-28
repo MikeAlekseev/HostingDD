@@ -1,11 +1,12 @@
 import { join } from 'node:path'
-import { readFile } from 'node:fs/promises'
+import { writeFile, readFile } from 'node:fs/promises'
+import { randomUUID } from 'node:crypto'
 
 import { Router } from 'express'
 
 import { FILESTORE_DIRPATH } from '@/config'
-import { isFileExist } from '@/utils'
-import { vaultListSchema, vaultIdSchema } from '@/routes/schemas'
+import { isFileExist, checkFileDirectory } from '@/utils'
+import { vaultListSchema, vaultIdSchema, VaultList } from '@/routes/schemas'
 
 export function vaultRoute(router: Router) {
     router.get('/vault/:vaultId', (req, res, next) => {
@@ -29,6 +30,20 @@ export function vaultRoute(router: Router) {
             const data = JSON.parse(await readFile(dataFilePath, 'utf8'))
 
             res.json(vaultListSchema.parse(data))
+        })().catch(next)
+    })
+
+    router.post('/vault', (req, res, next) => {
+        (async () => {
+            const vaultId = randomUUID()
+            const dataFilePath = join(FILESTORE_DIRPATH, vaultId, 'data.json')
+            const defaultData: VaultList = []
+
+            await checkFileDirectory(dataFilePath)
+
+            await writeFile(dataFilePath, JSON.stringify(defaultData))
+
+            res.json({ vaultId })
         })().catch(next)
     })
 }

@@ -11,6 +11,7 @@ lerna-debug.log*
 /dist
 /dist-ssr
 /data
+/temp
 /docker
 *.local
 vite.config.ts.timestamp-*

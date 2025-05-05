@@ -8,7 +8,7 @@ import multer from 'multer'
 import fse from 'fs-extra'
 
 import { FILESTORE_DIRPATH, TEMP_FILESTORE_DIRPATH } from '@/config'
-import { isFileExist, getImageThumbnail } from '@/utils'
+import { isFileExist, getImageThumbnail, isFileImage } from '@/utils'
 import { vaultListSchema, vaultIdSchema, fileIdSchema, VaultList } from '@/routes/schemas'
 
 const uploadTempFileMiddleware = multer({ dest: TEMP_FILESTORE_DIRPATH })
@@ -102,13 +102,15 @@ export function fileUploadRoute(router: Router) {
                 throw new Error('Ошибка загрузки')
             }
 
+            const isImage = await isFileImage(req.file!.path)
+
             await fse.move(req.file!.path, join(vaultPath, fileId))
 
             const data = JSON.parse(await readFile(dataFilePath, 'utf8')) as VaultList
 
             data.push({
                 id: fileId,
-                isImage: false,
+                isImage,
                 title: req.file!.originalname,
             })
 

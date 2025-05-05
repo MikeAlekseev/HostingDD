@@ -1,14 +1,16 @@
 import process from 'node:process'
 import http from 'node:http'
 
-import { app } from '@/app'
 import { config } from '@/config'
+import { startCron } from '@/services/cron'
+import { app } from '@/app'
 
 const {
     siteUrl,
     app: { host, port },
 } = config
 
+const stopTasks = startCron()
 const server = http.createServer(app)
 
 server.listen(port, host, () => {
@@ -38,6 +40,8 @@ process.on('uncaughtException', (err, origin) => {
         })
     })
 
+    stopTasks()
+
     Promise.all([
         closingWebApp,
     ]).then(() => {
@@ -52,6 +56,8 @@ process.on('uncaughtException', (err, origin) => {
 const onCloseSignal = () => {
     // eslint-disable-next-line no-console
     console.log('sigint received, shutting down')
+
+    stopTasks()
 
     const closingWebApp = new Promise((resolve, reject) => {
         server.close((e) => {

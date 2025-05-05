@@ -7,6 +7,8 @@ import { uploadFile } from '@/api/file'
 
 import '../../../MainPage.css'
 
+import { CopyButton } from './CopyButton'
+
 export function MainPage() {
     const mountedRef = useRef(true)
     const vaultIdRef = useRef<undefined | string>(undefined)
@@ -103,6 +105,9 @@ export function MainPage() {
                                 )
                                 : null
                         }
+                    </div>
+                    <div>
+                        <CopyButton mountedRef={mountedRef} vaultIdRef={vaultIdRef}/>
                     </div>
                 </div>
             </div>

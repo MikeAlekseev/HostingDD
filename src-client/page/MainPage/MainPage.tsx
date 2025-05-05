@@ -9,10 +9,17 @@ import '../../../MainPage.css'
 
 import { CopyButton } from './CopyButton'
 
+type FileList = {
+    id: string
+    name: string
+    uploaded: boolean
+    file: File
+}
+
 export function MainPage() {
     const mountedRef = useRef(true)
     const vaultIdRef = useRef<undefined | string>(undefined)
-    const [filesLoadingCount, setFilesLoadingCount] = useState(0)
+    const [fileList, setFileList] = useState<FileList[]>([])
 
     useEffect(() => {
         return () => {
@@ -31,28 +38,31 @@ export function MainPage() {
             vaultIdRef.current = vaultId
         }
 
-        setFilesLoadingCount((prevState) => prevState + files.length)
+        const fileListToUpload = files.map((file: File) => ({
+            id: crypto.randomUUID(),
+            name: file.name,
+            uploaded: false,
+            file,
+        }) as FileList)
 
-        for (const file of files) {
+        setFileList((prev) => ([...prev, ...fileListToUpload]))
+
+        for (const fileToUpload of fileListToUpload) {
             try {
-                const uploadedFile = await uploadFile(vaultIdRef.current, file)
-
-                console.log('Загружено что-то! ', uploadedFile)
+                await uploadFile(vaultIdRef.current, fileToUpload.file)
 
                 if (mountedRef.current) {
-                    console.log('Загружено', file)
-
-                    // runInAction(() => {
-                    //     documentPageStore.document.files.push(uploadedFile)
-                    // })
+                    setFileList((prev) => prev.map((item) => {
+                        if (item.id === fileToUpload.id) {
+                            return ({ ...item, uploaded: true })
+                        } else {
+                            return item
+                        }
+                    }))
                 }
             } catch (error) {
                 console.error(error)
-                alert(`Ошибка загрузки файла ${file.name}`)
-            } finally {
-                if (mountedRef.current) {
-                    setFilesLoadingCount((prevState) => prevState - 1)
-                }
+                alert(`Ошибка загрузки файла ${fileToUpload.name}`)
             }
         }
     }, [mountedRef])
@@ -66,6 +76,8 @@ export function MainPage() {
             window.dropHandler = undefined
         }
     }, [addFiles])
+
+    const uploadingFilesCount = fileList.filter(({ uploaded }) => !uploaded).length
 
     return (
         <div className="top div-bottom-borde">
@@ -99,9 +111,25 @@ export function MainPage() {
                         </label>
 
                         {
-                            filesLoadingCount > 0
+                            uploadingFilesCount > 0
                                 ? (
-                                    <span>Загружается {plural(filesLoadingCount, 'файл', 'файла', 'файлов')}</span>
+                                    <span>Загружается {plural(uploadingFilesCount, 'файл', 'файла', 'файлов')}</span>
+                                )
+                                : null
+                        }
+
+                        {
+                            fileList.length
+                                ? (
+                                    <ul>
+                                        {
+                                            fileList.map(({ id, name, uploaded }) => (
+                                                uploaded
+                                                    ? <li key={id}><span style={{ color: 'green' }}>✔</span>{name}</li>
+                                                    : <li key={id} style={{ color: 'grey', fontStyle: 'italic' }}>&nbsp;&nbsp;{name}</li>
+                                            ))
+                                        }
+                                    </ul>
                                 )
                                 : null
                         }

@@ -89,7 +89,7 @@ export const apiUploadFileTempRequestSchema = z.object({
     originalname: z.string(),
 })
 
-export function fileUpladRoute(router: Router) {
+export function fileUploadRoute(router: Router) {
     router.post('/:vaultId', uploadTempFileMiddleware.single('file'), (req, res, next) => {
         (async () => {
             const fileId = randomUUID()

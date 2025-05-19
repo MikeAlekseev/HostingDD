@@ -34,6 +34,7 @@
         "cron": "^4.3.0",
         "cross-env": "^7.0.3",
         "dotenv": "^16.4.7",
+        "exif-be-gone": "^1.5.1",
         "express": "^4.21.2",
         "fs-extra": "^11.3.0",
         "image-thumbnail": "^1.0.17",

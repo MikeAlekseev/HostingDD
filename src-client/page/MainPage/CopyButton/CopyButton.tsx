@@ -32,7 +32,7 @@ export function CopyButton({
         <div>
             {
                 vaultIdRef.current
-                    ? <button type="button" onClick={copyToClipboard}>Скопировать ссылку на файлы</button>
+                    ? <button className='copy__button' type="button" onClick={copyToClipboard}>Скопировать ссылку на файлы</button>
                     : null
             }
             {

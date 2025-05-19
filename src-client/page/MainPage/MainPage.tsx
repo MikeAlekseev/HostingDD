@@ -96,7 +96,7 @@ export function MainPage() {
                 <div className="main_right">
                     <div className="main_button">
                         <label htmlFor="fileUpload" className="button">
-                            СЮДА ТАЩИТЬ ФАЙЛЫ
+                            СЮДА ТАЩИТЬ ФАЙЛЫ <br/>
                             <input
                                 id="fileUpload"
                                 type="file"
@@ -107,7 +107,7 @@ export function MainPage() {
 
                                     addFiles(files)
                                 }}
-                            />
+                            /> <br/>
                         </label>
 
                         {
@@ -116,7 +116,7 @@ export function MainPage() {
                                     <span>Загружается {plural(uploadingFilesCount, 'файл', 'файла', 'файлов')}</span>
                                 )
                                 : null
-                        }
+                        } <br/>
 
                         {
                             fileList.length

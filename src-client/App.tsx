@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+import { UserContextWrapper } from './context'
 import { MainPage } from './page/MainPage'
 import { VaultPage } from './page/VaultPage'
 import { NotFoundPage } from './page/NotFoundPage'
@@ -17,12 +18,14 @@ export function App() {
     return (
         <QueryClientProvider client={queryClient}>
             <BrowserRouter>
-                <Routes>
-                    <Route index element={<MainPage/>}/>
-                    <Route path="vault/:vaultId" element={<VaultPage/>}/>
+                <UserContextWrapper>
+                    <Routes>
+                        <Route index element={<MainPage/>}/>
+                        <Route path="vault/:vaultId" element={<VaultPage/>}/>
 
-                    <Route path="*" element={<NotFoundPage/>}/>
-                </Routes>
+                        <Route path="*" element={<NotFoundPage/>}/>
+                    </Routes>
+                </UserContextWrapper>
             </BrowserRouter>
         </QueryClientProvider>
     )

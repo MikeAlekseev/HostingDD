@@ -44,6 +44,7 @@ const configValidationResult = z.object({
     SITE_URL: z.string().optional(),
     TRUST_PROXY_COUNT: numberSchema.nonnegative().default(0),
     FILE_TTL_DAYS: numberSchema.nonnegative().default(180),
+    SESSION_SECRET: z.string().min(10),
 }).transform((o) => {
     return ({
         siteUrl: o.SITE_URL || `http://localhost:${o.PORT}`,
@@ -52,6 +53,7 @@ const configValidationResult = z.object({
             host: o.HOST,
             port: o.PORT,
             trustProxyCount: o.TRUST_PROXY_COUNT,
+            secret: o.SESSION_SECRET,
         },
     })
 }).safeParse(process.env)

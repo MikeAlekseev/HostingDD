@@ -6,6 +6,7 @@ export async function uploadFile(vaultId: string, file: File) {
 
     return fetch(`/upload/${vaultId}`, {
         method: 'POST',
+        credentials: 'include',
         body: formData
     })// as Promise<ApiUploadFileResponse>
 }

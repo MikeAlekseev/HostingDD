@@ -1,9 +1,11 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 import { plural } from '@/utils'
+import { logout } from '@/api/auth'
 import { createVault } from '@/api/vault'
 import { uploadFile } from '@/api/file'
+import { UserContext } from '@/context'
 
 import '../../../MainPage.css'
 
@@ -20,12 +22,19 @@ export function MainPage() {
     const mountedRef = useRef(true)
     const vaultIdRef = useRef<undefined | string>(undefined)
     const [fileList, setFileList] = useState<FileList[]>([])
+    const auth = useContext(UserContext)
 
     useEffect(() => {
         return () => {
             mountedRef.current = false
         }
     }, [])
+
+    const logoutHandler = useCallback(() => {
+        logout().then(() => {
+            auth.setUser(null)
+        })
+    }, [auth])
 
     const addFiles = useCallback(async (files: File[] | undefined | null) => {
         if (!files || !files.length) {
@@ -87,9 +96,19 @@ export function MainPage() {
                     ТУТ КАКАЯ ТА НАДПИСЬ
                     <Link to="/vault/3ca71b8c-1a94-4b57-9998-ffee986220ac">Test</Link>
                 </div>
-                <div className="login">
-                    Login / Registration
-                </div>
+                {
+                    auth.user
+                        ? (
+                            <div className="login" onClick={logoutHandler}>
+                                {auth.user.login}
+                            </div>
+                        )
+                        : (
+                            <div className="login">
+                                Login / Registration
+                            </div>
+                        )
+                }
             </div>
             <div className="main r">
                 <div className="main_left"></div>

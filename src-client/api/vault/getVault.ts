@@ -1,5 +1,5 @@
 export async function getVault(vaultId: string) {
-    const res = await fetch(`/api/vault/${vaultId}`)
+    const res = await fetch(`/api/vault/${vaultId}`, { credentials: 'include' })
 
     if (!res.ok || res.status !== 200) {
         throw new Error('Bad response')

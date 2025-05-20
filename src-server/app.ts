@@ -1,6 +1,7 @@
 // import cors from 'cors'
 import express, { Express } from 'express'
 // import helmet from 'helmet'
+import session from 'express-session'
 
 import { config } from '@/config'
 
@@ -35,6 +36,11 @@ await initFrontend(app)
 
 // Routes
 // app.use('/health-check', healthCheckRouter)
+
+app.use(session({
+    secret: config.app.secret,
+    rolling: true,
+}))
 
 app.use('/api', router)
 app.use('/upload', fileRouter)

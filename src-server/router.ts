@@ -1,7 +1,7 @@
 import express from 'express'
 
 import { vaultRoute } from '@/routes/vault'
-import { fileRoute, filePreviewRoute, fileUploadRoute } from '@/routes/file'
+import { fileRoute, filePreviewRoute, fileUploadRoute, fileRemoveRoute } from '@/routes/file'
 import { authRoute } from '@/routes/auth'
 
 export const router = express.Router()
@@ -12,3 +12,4 @@ authRoute(router)
 fileRoute(fileRouter)
 filePreviewRoute(fileRouter)
 fileUploadRoute(fileRouter)
+fileRemoveRoute(router)

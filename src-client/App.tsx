@@ -24,7 +24,7 @@ export function App() {
                     <Routes>
                         <Route element={<Layout/>}>
                             <Route index element={<MainPage/>}/>
-                            <Route path="voultes" element={<MyVaultsPage/>}/>
+                            <Route path="vaults" element={<MyVaultsPage/>}/>
                             <Route path="vault/:vaultId" element={<VaultPage/>}/>
 
                             <Route path="*" element={<NotFoundPage/>}/>

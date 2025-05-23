@@ -8,8 +8,9 @@ import multer from 'multer'
 import fse from 'fs-extra'
 
 import { FILESTORE_DIRPATH, TEMP_FILESTORE_DIRPATH } from '@/config'
-import { isFileExist, getImageThumbnail, isFileImage, moveImageAndCleanExif } from '@/utils'
+import { isFileExist, getImageThumbnail, isFileImage, moveImageAndCleanExif, readJsonFile, writeJsonFile } from '@/utils'
 import { vaultListSchema, vaultIdSchema, fileIdSchema, VaultList } from '@/routes/schemas'
+import { getUsersVaults } from '@/services/userVaults'
 
 const uploadTempFileMiddleware = multer({ dest: TEMP_FILESTORE_DIRPATH })
 
@@ -119,6 +120,41 @@ export function fileUploadRoute(router: Router) {
             })
 
             await writeFile(dataFilePath, JSON.stringify(data))
+
+            res.send()
+        })().catch((e) => next(e))
+    })
+}
+
+export function fileRemoveRoute(router: Router) {
+    router.delete('/:vaultId/:fileId', (req, res, next) => {
+        (async () => {
+            const { user } = req.session
+
+            if (!user) {
+                res.sendStatus(401)
+
+                return
+            }
+
+            const vaultId = vaultIdSchema.parse(req.params.vaultId)
+            const fileId = fileIdSchema.parse(req.params.fileId)
+
+            const usersVaults = await getUsersVaults(user.id)
+
+            const vaultPath = join(FILESTORE_DIRPATH, vaultId)
+            const dataFilePath = join(vaultPath, 'data.json')
+
+            if (!usersVaults.map(({ vaultId }) => vaultId).includes(vaultId)) {
+                res.sendStatus(403)
+
+                return
+            }
+
+            const data = await readJsonFile(dataFilePath, vaultListSchema, [])
+            const newData = data.filter((file) => file.id !== fileId)
+
+            await writeJsonFile(dataFilePath, newData, vaultListSchema)
 
             res.send()
         })().catch((e) => next(e))

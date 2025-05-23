@@ -26,7 +26,7 @@ export const UserPanel = () => {
 
     return (
         <div className="login">
-            <Link to="/voultes">{auth.user.login}</Link>
+            <Link to="/vaults">{auth.user.login}</Link>
             <button
                 type="button"
                 onClick={logoutHandler}

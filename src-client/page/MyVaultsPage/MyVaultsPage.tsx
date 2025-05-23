@@ -1,11 +1,14 @@
+import { useContext } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 
 import { getVaults } from '@/api/vault'
+import { UserContext } from '@/context'
 
 export const MyVaultsPage = () => {
+    const auth = useContext(UserContext)
     const query = useQuery({
-        queryKey: ['vault'],
+        queryKey: ['user', auth.user?.id, 'vault', 'list'],
         queryFn: async () => {
             return getVaults()
         },

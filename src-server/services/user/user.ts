@@ -22,9 +22,10 @@ const userFileSchema = z.array(dbUserSchema)
 
 export async function getUser(login: string, password: string) {
     const users = await readJsonFile(userFilePath, userFileSchema, [])
+    const loginFinal = login.trim().toLowerCase()
 
     for (const dbUser of users) {
-        if (dbUser.login === login && await comparePassAndPassHash(password, dbUser.passhash)) {
+        if (dbUser.login.toLowerCase() === loginFinal && await comparePassAndPassHash(password, dbUser.passhash)) {
             const user: MyUser = { id: dbUser.id, login: dbUser.login }
 
             return user
@@ -35,14 +36,16 @@ export async function getUser(login: string, password: string) {
 }
 
 export async function addUser(login: string, password: string) {
+    const loginFinal = login.trim().toLowerCase()
+
     const dbUser = dbUserSchema.parse({
         id: randomUUID(),
-        login,
+        login: login.trim(),
         passhash: await generatePassHash(password),
     } as DbUserSchema)
     const users = await readJsonFile(userFilePath, userFileSchema, [])
 
-    const doubleUser = users.find(user => user.login === login)
+    const doubleUser = users.find(user => user.login.toLowerCase() === loginFinal)
 
     if (doubleUser) {
         return false

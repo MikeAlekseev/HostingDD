@@ -16,7 +16,7 @@ export function authRoute(router: Router) {
             const login = (req.body as { login: string }).login || ''
             const password = (req.body as { password: string }).password || ''
 
-            const user = await getUser(login.trim().toLowerCase(), password)
+            const user = await getUser(login, password)
 
             if (user) {
                 req.session.user = user
@@ -31,14 +31,14 @@ export function authRoute(router: Router) {
             const login = (req.body as { login: string }).login || ''
             const password = (req.body as { password: string }).password || ''
 
-            const user = await addUser(login.trim().toLowerCase(), password)
+            const user = await addUser(login, password)
 
             if (user) {
                 req.session.user = user
 
                 res.json({ user })
             } else {
-                res.json({ user: null, error: 'Такой пользователь уже зарегистрирован' })
+                res.json({ user: null, error: 'User exists' })
             }
         })().catch(next)
     })

@@ -1,11 +1,8 @@
-import { useCallback, useEffect, useRef, useState, useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { plural } from '@/utils'
-import { logout } from '@/api/auth'
 import { createVault } from '@/api/vault'
 import { uploadFile } from '@/api/file'
-import { UserContext } from '@/context'
 
 import '../../../MainPage.css'
 
@@ -22,19 +19,12 @@ export function MainPage() {
     const mountedRef = useRef(true)
     const vaultIdRef = useRef<undefined | string>(undefined)
     const [fileList, setFileList] = useState<FileList[]>([])
-    const auth = useContext(UserContext)
 
     useEffect(() => {
         return () => {
             mountedRef.current = false
         }
     }, [])
-
-    const logoutHandler = useCallback(() => {
-        logout().then(() => {
-            auth.setUser(null)
-        })
-    }, [auth])
 
     const addFiles = useCallback(async (files: File[] | undefined | null) => {
         if (!files || !files.length) {
@@ -89,77 +79,53 @@ export function MainPage() {
     const uploadingFilesCount = fileList.filter(({ uploaded }) => !uploaded).length
 
     return (
-        <div className="top div-bottom-borde">
-            <h1>MainPage</h1>
-            <div className="header">
+        <div className="main r">
+            <div className="main_left"></div>
+            <div className="main_right">
+                <div className="main_button">
+                    <label htmlFor="fileUpload" className="button">
+                        СЮДА ТАЩИТЬ ФАЙЛЫ <br/>
+                        <input
+                            id="fileUpload"
+                            type="file"
+                            multiple
+                            value=""
+                            onChange={(e) => {
+                                const files = e.target.files ? [...e.target.files] : null
+
+                                addFiles(files)
+                            }}
+                        /> <br/>
+                    </label>
+
+                    {
+                        uploadingFilesCount > 0
+                            ? (
+                                <span>Загружается {plural(uploadingFilesCount, 'файл', 'файла', 'файлов')}</span>
+                            )
+                            : null
+                    } <br/>
+
+                    {
+                        fileList.length
+                            ? (
+                                <ul>
+                                    {
+                                        fileList.map(({ id, name, uploaded }) => (
+                                            uploaded
+                                                ? <li key={id}><span style={{ color: 'green' }}>✔</span>{name}</li>
+                                                : <li key={id} style={{ color: 'grey', fontStyle: 'italic' }}>&nbsp;&nbsp;{name}</li>
+                                        ))
+                                    }
+                                </ul>
+                            )
+                            : null
+                    }
+                </div>
                 <div>
-                    ТУТ КАКАЯ ТА НАДПИСЬ
-                    <Link to="/vault/3ca71b8c-1a94-4b57-9998-ffee986220ac">Test</Link>
-                </div>
-                {
-                    auth.user
-                        ? (
-                            <div className="login" onClick={logoutHandler}>
-                                {auth.user.login}
-                            </div>
-                        )
-                        : (
-                            <div className="login">
-                                Login / Registration
-                            </div>
-                        )
-                }
-            </div>
-            <div className="main r">
-                <div className="main_left"></div>
-                <div className="main_right">
-                    <div className="main_button">
-                        <label htmlFor="fileUpload" className="button">
-                            СЮДА ТАЩИТЬ ФАЙЛЫ <br/>
-                            <input
-                                id="fileUpload"
-                                type="file"
-                                multiple
-                                value=""
-                                onChange={(e) => {
-                                    const files = e.target.files ? [...e.target.files] : null
-
-                                    addFiles(files)
-                                }}
-                            /> <br/>
-                        </label>
-
-                        {
-                            uploadingFilesCount > 0
-                                ? (
-                                    <span>Загружается {plural(uploadingFilesCount, 'файл', 'файла', 'файлов')}</span>
-                                )
-                                : null
-                        } <br/>
-
-                        {
-                            fileList.length
-                                ? (
-                                    <ul>
-                                        {
-                                            fileList.map(({ id, name, uploaded }) => (
-                                                uploaded
-                                                    ? <li key={id}><span style={{ color: 'green' }}>✔</span>{name}</li>
-                                                    : <li key={id} style={{ color: 'grey', fontStyle: 'italic' }}>&nbsp;&nbsp;{name}</li>
-                                            ))
-                                        }
-                                    </ul>
-                                )
-                                : null
-                        }
-                    </div>
-                    <div>
-                        <CopyButton mountedRef={mountedRef} vaultIdRef={vaultIdRef}/>
-                    </div>
+                    <CopyButton mountedRef={mountedRef} vaultIdRef={vaultIdRef}/>
                 </div>
             </div>
-
         </div>
-
     )
 }

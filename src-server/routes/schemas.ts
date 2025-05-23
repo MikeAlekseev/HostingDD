@@ -11,3 +11,12 @@ export const vaultListSchema = z.array(
 )
 
 export type VaultList = z.infer<typeof vaultListSchema>
+
+export const vaultNameSchema = z.string().min(1)
+
+export const usersVaultSchema = z.object({
+    name: vaultNameSchema,
+    vaultId: vaultIdSchema,
+})
+
+export type UsersVault = z.infer<typeof usersVaultSchema>

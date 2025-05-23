@@ -79,8 +79,3 @@ export async function register(login: string, password: string) {
 
     return await res.json() as AuthResponse
 }
-
-// window.userInfo = userInfo
-// window.login = login
-// window.logout = logout
-// window.register = register

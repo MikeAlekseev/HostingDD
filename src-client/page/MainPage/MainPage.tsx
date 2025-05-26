@@ -4,7 +4,7 @@ import { plural } from '@/utils'
 import { createVault } from '@/api/vault'
 import { uploadFile } from '@/api/file'
 
-import '../../../MainPage.css'
+import '../../MainPage.css'
 
 import { CopyButton } from './CopyButton'
 

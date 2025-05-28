@@ -2,7 +2,7 @@
 
 module.exports = {
     apps: [{
-        name: 'file-hosting',
+        name: 'Hosting',
         script: 'dist/server/index.js',
         instances: 1,
         autorestart: true,

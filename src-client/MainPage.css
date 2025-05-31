@@ -29,6 +29,13 @@ body {
     border-bottom: 1px solid white;
 }
 
+.name{
+    font-size: 100px; /* или больше */
+    font-weight: bold;
+    text-align: center;
+    margin-left: 100px;
+}
+
 .login{
     padding: 10px;
     border: 1px solid white;

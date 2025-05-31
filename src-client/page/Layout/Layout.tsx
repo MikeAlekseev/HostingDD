@@ -21,8 +21,8 @@ export const Layout = () => {
                 <h1>Private file hosting</h1>
             </Link>
             <div className="header">
-                <div>
-                    ТУТ КАКАЯ ТА НАДПИСЬ
+                <div className="name">
+                    GOTEI13
                 </div>
                 {
                     auth.user

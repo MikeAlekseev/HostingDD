@@ -1,11 +1,13 @@
 import { useContext } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
+import { format } from "date-fns";
 
 import { getVaults } from '@/api/vault'
 import { UserContext } from '@/context'
 
-import './MyVaultsPage.css'
+
+import './MyVaultsPage.scss'
 
 export const MyVaultsPage = () => {
     const auth = useContext(UserContext)
@@ -31,19 +33,17 @@ export const MyVaultsPage = () => {
     }
 
     return (
-        <div>
-            <p className="header">Мои загрузки</p>
-
-
-            <ul>
+        <div className="myVaultsWrapper">
+            <h2 className="myVaultsHeader">Мои загрузки</h2>
+            <ol className="myVaultsList">
                 {
-                    query.data.map(({ vaultId, name }) => (
+                    query.data.map(({ vaultId, name }, pos) => (
                         <li>
-                            <Link id={vaultId} to={`/vault/${vaultId}`}>{name}</Link>
+                            <Link id={vaultId} to={`/vault/${vaultId}`}> {pos + 1}. Загрузка от: {format(name, 'dd.MM.yyyy mm:hh')}</Link>
                         </li>
                     ))
                 }
-            </ul>
+            </ol>
         </div>
     )
 }

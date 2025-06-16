@@ -1,0 +1,30 @@
+
+.myVaultsWrapper{
+    flex: 1 0 auto;
+
+    .myVaultsHeader{
+        text-align: center;
+        font-size: 48px;
+    }
+
+    .myVaultsList{
+        padding: 32px;
+        list-style-type: none;
+
+        .li{
+            padding: 8px 0;
+        }
+
+        a{
+            color: #aaaaaa;
+            font-size: 32px;
+
+
+            &:hover{
+                text-decoration: underline;
+                color: #666;
+            }
+        }
+    }
+
+}

@@ -6,6 +6,8 @@ import { getVault, getVaults } from '@/api/vault'
 import { deleteFile } from '@/api/file'
 import { UserContext } from '@/context'
 
+import './VaultPage.scss'
+
 export function VaultPage(){
     const auth = useContext(UserContext)
     const { vaultId } = useParams()
@@ -68,13 +70,15 @@ export function VaultPage(){
         )
     }
 
+    const imageList = query.data.filter(({ isImage }) => isImage);
+
     return (
-        <div>
-            <h1>VaultPage</h1>
-            <ul>
+        <div className="vaultPage">
+            <h1 className="vaultPageHeader">ЗАГРУЗКИ</h1>
+            <ul className="uploadedImageList">
                 {
-                    query.data.filter(({ isImage }) => isImage).map(({ id, title }) => (
-                        <li key={id}>
+                    imageList.map(({ id, title }) => (
+                        <li className="uploadedImage" key={id}>
                             <a href={`/upload/${vaultId}/${id}/${title}`}>
                                 <img src={`/upload/${vaultId}/${id}/preview/${title}`} alt={title} />
                             </a>
@@ -88,7 +92,7 @@ export function VaultPage(){
                                                 mutation.mutate(id)
                                             }}
                                         >
-                                            X
+                                            ✕
                                         </button>
                                     )
                                     : null
@@ -97,11 +101,11 @@ export function VaultPage(){
                     ))
                 }
             </ul>
-            <hr/>
-            <ul>
+            {imageList.length < query.data.length && imageList.length > 0 ? <hr/> : null}
+            <ul className="uploadedFileList">
                 {
                     query.data.filter(({ isImage }) => !isImage).map(({ id, title }) => (
-                        <li key={id}>
+                        <li key={id} className="uploadedFile">
                             <a href={`/upload/${vaultId}/${id}/${title}`}>
                                 {title}
                             </a>
@@ -115,7 +119,7 @@ export function VaultPage(){
                                                 mutation.mutate(id)
                                             }}
                                         >
-                                            X
+                                            ✕
                                         </button>
                                     )
                                     : null

@@ -82,46 +82,44 @@ export function MainPage() {
         <div className="main r">
             <div className="main_left"></div>
             <div className="main_right">
-                <div className="main_button">
-                    <label htmlFor="fileUpload" className="button">
-                        СЮДА ТАЩИТЬ ФАЙЛЫ <br/>
-                        <input
-                            id="fileUpload"
-                            type="file"
-                            multiple
-                            value=""
-                            onChange={(e) => {
-                                const files = e.target.files ? [...e.target.files] : null
+                <label htmlFor="fileUpload" className="button main_button">
+                    СЮДА ТАЩИТЬ ФАЙЛЫ <br/>
+                    <input
+                        id="fileUpload"
+                        type="file"
+                        multiple
+                        value=""
+                        onChange={(e) => {
+                            const files = e.target.files ? [...e.target.files] : null
 
-                                addFiles(files)
-                            }}
-                        /> <br/>
-                    </label>
+                            addFiles(files)
+                        }}
+                    /> <br/>
+                </label>
 
-                    {
-                        uploadingFilesCount > 0
-                            ? (
-                                <span>Загружается {plural(uploadingFilesCount, 'файл', 'файла', 'файлов')}</span>
-                            )
-                            : null
-                    } <br/>
+                {
+                    uploadingFilesCount > 0
+                        ? (
+                            <span>Загружается {plural(uploadingFilesCount, 'файл', 'файла', 'файлов')}</span>
+                        )
+                        : null
+                } <br/>
 
-                    {
-                        fileList.length
-                            ? (
-                                <ul>
-                                    {
-                                        fileList.map(({ id, name, uploaded }) => (
-                                            uploaded
-                                                ? <li key={id}><span style={{ color: 'green' }}>✔</span>{name}</li>
-                                                : <li key={id} style={{ color: 'grey', fontStyle: 'italic' }}>&nbsp;&nbsp;{name}</li>
-                                        ))
-                                    }
-                                </ul>
-                            )
-                            : null
-                    }
-                </div>
+                {
+                    fileList.length
+                        ? (
+                            <ul>
+                                {
+                                    fileList.map(({ id, name, uploaded }) => (
+                                        uploaded
+                                            ? <li key={id}><span style={{ color: 'green' }}>✔</span>{name}</li>
+                                            : <li key={id} style={{ color: 'grey', fontStyle: 'italic' }}>&nbsp;&nbsp;{name}</li>
+                                    ))
+                                }
+                            </ul>
+                        )
+                        : null
+                }
                 <div>
                     <CopyButton mountedRef={mountedRef} vaultIdRef={vaultIdRef}/>
                 </div>

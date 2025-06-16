@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import { getVaults } from '@/api/vault'
 import { UserContext } from '@/context'
 
+import './MyVaultsPage.css'
+
 export const MyVaultsPage = () => {
     const auth = useContext(UserContext)
     const query = useQuery({
@@ -30,7 +32,8 @@ export const MyVaultsPage = () => {
 
     return (
         <div>
-            My vaults
+            <p className="header">Мои загрузки</p>
+
 
             <ul>
                 {

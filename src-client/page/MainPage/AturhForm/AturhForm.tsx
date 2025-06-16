@@ -65,10 +65,10 @@ export const AturhForm = () => {
 
     return (
         <form className="login" onSubmit={submitHandler}>
-            <div>
+            <div className="auth">
                 <input id="login" name="login" type="text" placeholder="Login"/>
             </div>
-            <div>
+            <div className="auth">
                 <input id="pass" name="pass" type="password" placeholder="Password"/>
             </div>
             {

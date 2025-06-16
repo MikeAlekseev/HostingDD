@@ -9,20 +9,21 @@ a {
  .top {
      width: 100%;
      margin: 0 auto;
-     /*margin-left:(50% - 1600px / 2);*/
-     /*margin-right:(50% -1600px / 2);*/
+     height: 100vh;
+     display: flex;
+     flex-direction: column;
+
  }
 body {
     outline: none;
     background-color: #000;
     color: white;
-    border: 1px solid white;
-    /*padding: 20px;*/
+
 }
 
 .header {
     max-width: 100%;
-    height: 150px;
+    height: 220px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,14 +41,49 @@ body {
     padding: 10px;
     border: 1px solid white;
     margin-right: 2%;
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    align-items: center;
+}
+.userPanel{
+    padding: 10px;
+    border: 1px solid white;
+    margin-right: 2%;
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    align-items: center;
+}
+.userPanel button{
+    padding: 4px;
+    font-size: 16px;
+}
+.userName{
+    color: #aaaaaa;
+    font-size: 20px;
+}
+.login button + button{
+    margin-left: 16px;
+    padding: 4px;
+}
+.login button {
+    font-size: 16px;
+}
+#login, #pass, #pass2{
+    padding: 4px;
+
 }
 .main{
-    height: 1000px;
+    flex: 1 0 auto;
     display: flex;
+
 }
 .main_left{
     width: 50%;
-    border: 1px solid white;
+    border-width: 1px;
+    border-style: none solid none none;
+    border-color: white;
 }
 .main_right{
     width: 50%;
@@ -61,19 +97,11 @@ body {
     border: 1px solid white;
     min-height: 500px;
     display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 10%
+    align-items: flex-start;
+    justify-content: center;
+    padding: 10%;
+    flex-direction: column;
 }
-.div-bottom-border {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%; /* растянуть на всю ширину экрана */
-    height: 2px; /* толщина нижней границы */
-    background-color: white; /* цвет линии */
-}
-
 
 .copy__button {
     padding: 10px;

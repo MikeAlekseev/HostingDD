@@ -24,7 +24,7 @@ jobs:
         username: root
         password: ${{ secrets.PASSWORD }}
         script: |
-          cd ~/projects/${{ vars.PM2_APP_NAME }}
+          cd ~/${{ vars.PM2_APP_NAME }}
           git pull
           export NVM_DIR=~/.nvm
           source ~/.nvm/nvm.sh

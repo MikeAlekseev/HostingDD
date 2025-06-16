@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { UserContext } from '@/context'
 import { logout } from '@/api/auth'
 
+import './UserPanel.scss'
+
 export const UserPanel = () => {
     const mountedRef = useRef(true)
     const auth = useContext(UserContext)

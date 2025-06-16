@@ -1,5 +1,7 @@
 import { useCallback, useState, MutableRefObject } from 'react'
 
+import './CopyButton.scss'
+
 export function CopyButton({
     mountedRef,
     vaultIdRef,

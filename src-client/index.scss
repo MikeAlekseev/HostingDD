@@ -1,3 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+}
+
+body {
+    outline: none;
+    background-color: #000;
+    color: white;
+
+}
+
 #dropOverlay {
     box-sizing: border-box;
     display: none;

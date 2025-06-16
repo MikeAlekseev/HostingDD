@@ -3,7 +3,7 @@ import { FormEventHandler, useCallback, useContext, useEffect, useRef, useState 
 import { login as doLogin, register as doRegister } from '@/api/auth'
 import { UserContext } from '@/context'
 
-import styles from './AturhForm.module.scss'
+import './AturhForm.scss'
 
 export const AturhForm = () => {
     const mountedRef = useRef(true)
@@ -64,7 +64,7 @@ export const AturhForm = () => {
     }, [isLogin, auth])
 
     return (
-        <form className="login" onSubmit={submitHandler}>
+        <form className="login-form" onSubmit={submitHandler}>
             <div className="auth">
                 <input id="login" name="login" type="text" placeholder="Login"/>
             </div>
@@ -95,7 +95,7 @@ export const AturhForm = () => {
                         <div>
                             <button
                                 type='button'
-                                className={styles.toggleAuthModeButton}
+                                className="toggleAuthModeButton"
                                 onClick={() => {
                                     setIsLogin(false)
                                     setAuthError('')
@@ -115,7 +115,7 @@ export const AturhForm = () => {
                         <div>
                             <button
                                 type='button'
-                                className={styles.toggleAuthModeButton}
+                                className="toggleAuthModeButton"
                                 onClick={() => {
                                     setIsLogin(true)
                                     setAuthError('')

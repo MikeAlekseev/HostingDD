@@ -5,6 +5,8 @@ import { UserContext } from '@/context'
 import { UserPanel } from '@/page/MainPage/UserPanel'
 import { AturhForm } from '@/page/MainPage/AturhForm'
 
+import './Layout.scss'
+
 export const Layout = () => {
     const mountedRef = useRef(true)
     const auth = useContext(UserContext)
@@ -16,12 +18,12 @@ export const Layout = () => {
     }, [])
 
     return (
-        <div className="top div-bottom-borde">
+        <div className="top">
             <Link to="/">
                 <h1>Private file hosting</h1>
             </Link>
             <div className="header">
-                <div className="name">
+                <div className="logoLabel">
                     GOTEI13
                 </div>
                 {

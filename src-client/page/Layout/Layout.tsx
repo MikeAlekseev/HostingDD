@@ -24,7 +24,7 @@ export const Layout = () => {
             </Link>
             <div className="header">
                 <div className="logoLabel">
-                    GOTEI13
+                    DEADLINE
                 </div>
                 {
                     auth.user

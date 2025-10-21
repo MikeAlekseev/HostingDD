@@ -20,16 +20,17 @@ jobs:
     - name: Deploy using ssh
       uses: appleboy/ssh-action@v1.2.0
       with:
-        host: ${{ vars.HOST }}
-        username: root
+        host: 185.151.247.158
+        username: detdom
         password: ${{ secrets.PASSWORD }}
         script: |
-          cd ~/${{ vars.PM2_APP_NAME }}
+          cd ~/HostingDD/
+          git reset --hard
           git pull
           export NVM_DIR=~/.nvm
           source ~/.nvm/nvm.sh
           npm ci
           npm run lint
           npm run build
-          pm2 restart ${{ vars.PM2_APP_NAME }}
+          pm2 restart Hosting
 

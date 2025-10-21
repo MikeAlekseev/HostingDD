@@ -31,5 +31,5 @@ jobs:
           npm ci
           npm run lint
           npm run build
-          pm2 restart HostingDD
+          pm2 restart Hosting
 

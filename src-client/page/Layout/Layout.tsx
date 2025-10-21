@@ -24,7 +24,7 @@ export const Layout = () => {
             </Link>
             <div className="header">
                 <div className="logoLabel">
-                    DEADLINE!!!
+                    DEADLINE!!
                 </div>
                 {
                     auth.user

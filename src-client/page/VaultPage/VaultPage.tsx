@@ -70,7 +70,7 @@ export function VaultPage(){
         )
     }
 
-    const imageList = query.data.filter(({ isImage }) => isImage);
+    const imageList = query.data.filter(({ isImage }) => isImage)
 
     return (
         <div className="vaultPage">

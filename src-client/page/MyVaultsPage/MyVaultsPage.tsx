@@ -1,11 +1,10 @@
 import { useContext } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
-import { format } from "date-fns";
+import { format } from 'date-fns'
 
 import { getVaults } from '@/api/vault'
 import { UserContext } from '@/context'
-
 
 import './MyVaultsPage.scss'
 

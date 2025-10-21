@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef } from 'react'
-import { Link, Outlet } from 'react-router-dom'
 
+import { Link, Outlet } from 'react-router-dom'
 import { UserContext } from '@/context'
 import { UserPanel } from '@/page/MainPage/UserPanel'
 import { AturhForm } from '@/page/MainPage/AturhForm'
@@ -24,7 +24,7 @@ export const Layout = () => {
             </Link>
             <div className="header">
                 <div className="logoLabel">
-                    DEADLINE
+                    DEADLINE!!!
                 </div>
                 {
                     auth.user

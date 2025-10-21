@@ -24,7 +24,8 @@ jobs:
         username: detdom
         password: ${{ secrets.PASSWORD }}
         script: |
-          cd ~/opt/HostingDD/
+          cd ~/HostingDD/
+          git reset --hard
           git pull
           export NVM_DIR=~/.nvm
           source ~/.nvm/nvm.sh
